@@ -34,7 +34,7 @@
     Тестовая копия <code>https://totgus.ru/dostavka</code> для проверки встраивания.
     Эта страница: <code id="origin"></code>. Во фрейме: <code id="src"></code>
     <form id="form">
-      <input id="url" name="src" placeholder="http://localhost:3210/dvagusya" autocomplete="off">
+      <input id="url" name="src" placeholder="https://dev-web.restomania.ru/kugel/345" autocomplete="off">
       <button>Открыть во фрейме</button>
     </form>
     <div id="status" style="margin-top:6px"></div>
@@ -51,7 +51,11 @@
   <footer>© Тот гусь — тестовая страница, не настоящий сайт.</footer>
 
   <script>
-    var DEFAULT_SRC = "http://localhost:3210/dvagusya";
+    // Локально — web из `nuxt dev`, на GitHub Pages — ресторан на DEV-сервере.
+    var IS_LOCAL = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+    var DEFAULT_SRC = IS_LOCAL
+      ? "http://localhost:3210/dvagusya"
+      : "https://dev-web.restomania.ru/kugel/345";
     var params = new URLSearchParams(location.search);
     var src = params.get("src") || DEFAULT_SRC;
     // Только http(s) — чтобы ?src=javascript:… не исполнился в этой странице.
